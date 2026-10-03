@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "stairtap",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/s/*"],
+    "not_found_handling": "404-page"
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "stairtap-db" }
+  ],
+  // Run the Worker in Europe so Google sees a supported region (Gemini API is blocked for Russian IPs).
+  "placement": { "region": "gcp:europe-west1" },
+  "observability": { "enabled": true }
+}
